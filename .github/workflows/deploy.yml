@@ -24,8 +24,8 @@ jobs:
     - name: Build project
       run: npm run build
 
-    - name: Debug VERCEL_TOKEN (for debugging)
-      run: echo "Vercel Token: ${{ secrets.VERCEL_TOKEN }}" # Debugging ONLY, remove for production use!
+    - name: Debug VERCEL_TOKEN (for debugging purposes)
+      run: echo "Vercel Token: ${{ secrets.VERCEL_TOKEN }}"  # Debugging ONLY, remove for production use
 
     - name: Deploy to Vercel
       run: npx vercel --prod --token ${{ secrets.VERCEL_TOKEN }}
