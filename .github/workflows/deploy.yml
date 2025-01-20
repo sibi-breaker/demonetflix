@@ -22,7 +22,7 @@ jobs:
       run: npm install
 
     - name: Build project
-      run: npm run build # Adjust if your build command is different
+      run: npm start # Adjust if your build command is different
 
     - name: Deploy to Vercel
       run: npx vercel --prod --token ${{ secrets.VERCEL_TOKEN }}
