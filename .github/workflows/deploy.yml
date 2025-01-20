@@ -3,28 +3,29 @@ name: Deploy to Vercel
 on:
   push:
     branches:
-      - main  # Change this to your default branch (e.g., `master` or `main`)
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '16'  # Specify the Node.js version you want to use
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
 
-    - name: Install dependencies
-      run: npm install
+      - name: Install dependencies
+        run: npm install
 
-    - name: Build project
-      run: npm run build
+      - name: Build the project
+        run: npm run build
 
-    - name: Deploy to Vercel
-      run: npx vercel --prod --token ${{ secrets.VERCEL_TOKEN }}
-      env:
-        VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      - name: Install Vercel CLI
+        run: npm install -g vercel
+
+      - name: Deploy to Vercel
+        run: |
+          vercel --prod --token ${{ secrets.VERCEL_TOKEN }} --yes
