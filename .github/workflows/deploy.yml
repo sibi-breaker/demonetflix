@@ -1,30 +1,35 @@
-name: Build and Deploy
+name: Deploy to Vercel
 
 on:
   push:
     branches:
-      - main
+      - main  # This will trigger the deployment when there is a push to the main branch
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout Code
+      # Checkout the repository
+      - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Cache Node Modules
-        uses: actions/cache@v3
+      # Set up Node.js (ensure it's the version that matches your app's requirement)
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+          node-version: '16'
 
-      - name: Install Dependencies
+      # Install dependencies
+      - name: Install dependencies
         run: npm install
 
-      - name: Build the Project
+      # Build the project
+      - name: Build project
         run: npm run build
 
+      # Deploy to Vercel
       - name: Deploy to Vercel
         run: npx vercel --prod --token ${{ secrets.VERCEL_TOKEN }}
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}  # Make sure to add your Vercel token in GitHub secrets
