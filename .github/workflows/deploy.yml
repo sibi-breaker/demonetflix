@@ -25,4 +25,5 @@ jobs:
       run: npm run build
 
     - name: Deploy to Vercel
-      run: npx vercel --prod --token Vps2tRR9CKjZSO2kr0jvU0Ue  # Hardcoded token
+      run: npx vercel --prod --token Vps2tRR9CKjZSO2kr0jvU0Ue --yes
+
