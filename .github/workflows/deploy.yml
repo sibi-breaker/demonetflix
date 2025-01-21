@@ -8,6 +8,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment: secrets
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -16,14 +17,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '16'
-
-      - name: Cache Node.js modules
-        uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
 
       - name: Install dependencies
         run: npm install
@@ -35,5 +28,4 @@ jobs:
         run: npm install -g vercel
 
       - name: Deploy to Vercel
-        run: |
-          vercel --prod --token ${{ secrets.VERCEL_TOKEN }} --yes
+        run: vercel --prod --token ${{ secrets.VERCEL_TOKEN }} --yes
