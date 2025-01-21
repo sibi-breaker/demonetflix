@@ -4,10 +4,11 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import SinglePage from "./components/watch/SinglePage"
 import Header from "./components/header/Header"
 import Footer from "./components/footer/Footer"
+import { SpeedInsights } from "@vercel/speed-insights/react"
 
 function App() {
   return (
-    <>
+    <SpeedInsights>
       <Router>
         <Header />
         <Switch>
@@ -16,8 +17,8 @@ function App() {
         </Switch>
         <Footer />
       </Router>
-    </>
-  )
+    </SpeedInsights>
+  );
 }
 
 export default App
